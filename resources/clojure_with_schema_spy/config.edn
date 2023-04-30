@@ -11,4 +11,6 @@
  :duct.module.web/api
  {}
  :duct.module/sql
- {}}
+ {}
+ :duct.migrator.ragtime/sql
+ {:resource-paths "migrations"}}

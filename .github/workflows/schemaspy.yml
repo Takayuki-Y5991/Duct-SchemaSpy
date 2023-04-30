@@ -1,0 +1,57 @@
+name: Generate ER Diagram with SchemaSpy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  schemaspy:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: api
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: api
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Install Leiningen
+        run: |
+          curl -sSL https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o /usr/local/bin/lein
+          chmod +x /usr/local/bin/lein
+          lein version
+
+      - name: Run Migrations
+        run: |
+          lein run :duct/migrator.ragtime/migrate
+
+      - name: Download SchemaSpy
+        run: |
+          wget -O schemaspy.jar https://github.com/schemaspy/schemaspy/releases/download/v6.1.0/schemaspy-6.1.0.jar
+          wget -O postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.2.24.jar
+
+      - name: Run SchemaSpy
+        run: |
+          mkdir output
+          java -jar schemaspy.jar -t pgsql -dp postgresql.jar -db ${{ env.POSTGRES_DB }} -host localhost:5432 -u ${{ env.POSTGRES_USER }} -p ${{ env.POSTGRES_PASSWORD }} -o output -norows -hq
+
+      - name: Upload ER Diagram as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: er-diagram
+          path: output/
