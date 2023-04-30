@@ -9,6 +9,6 @@ services:
     volumes:
       - ./postgres:/var/lib/postgres/data
     environment:
-      - POSTGRES_USER=quarkus
+      - POSTGRES_USER=api
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=forum
+      - POSTGRES_DB=api
