@@ -54,7 +54,7 @@ jobs:
       - name: Run SchemaSpy
         run: |
           mkdir output
-          java -jar schemaspy.jar -t pgsql -dp postgresql.jar -host localhost -port 5432 -db ${{ env.POSTGRES_DB }} -u ${{ env.POSTGRES_USER }} -p ${{ env.POSTGRES_PASSWORD }} -o output -norows -hq
+          java -jar schemaspy.jar -t pgsql -dp postgresql.jar -host localhost -port 5432 -db ${{ env.POSTGRES_DB }} -s public -u ${{ env.POSTGRES_USER }} -p ${{ env.POSTGRES_PASSWORD }} -o output -norows -hq
      
 
 
