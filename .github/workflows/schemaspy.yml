@@ -38,7 +38,9 @@ jobs:
 
       - name: Run Migrations
         run: |
-          lein run :duct/migrator.ragtime/migrate
+          lein run -m clojure-with-schema-spy.core/dev
+          lein run -m clojure-with-schema-spy.core/reset
+          
 
       - name: Download SchemaSpy
         run: |

@@ -4,10 +4,10 @@ CREATE TABLE accounts (
     password VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     role_id INTEGER NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES roles(id) ON UPDATE CREATE
-)
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON UPDATE CASCADE
+);
 
 CREATE TABLE roles (
     id serial PRIMARY KEY,
     name VARCHAR(10) NOT NULL UNIQUE
-)
+);

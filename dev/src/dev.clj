@@ -14,7 +14,7 @@
 (duct/load-hierarchy)
 
 (defn read-config []
-  (duct/read-config (io/resource "clojure_with_schema_spy/config.edn")))
+  (duct/read-config (io/resource "clojure_with_schema_spy/config.edn") {:eval true}))
 
 (defn test []
   (eftest/run-tests (eftest/find-tests "test")))

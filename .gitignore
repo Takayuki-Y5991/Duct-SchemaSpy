@@ -14,3 +14,6 @@ pom.xml.asc
 /dev/src/local.clj
 
 clojure-with-schema-spy.iml
+/.clj-kondo/
+/.idea/
+/.lsp/
