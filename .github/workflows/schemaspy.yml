@@ -51,12 +51,11 @@ jobs:
           wget -O schemaspy.jar https://github.com/schemaspy/schemaspy/releases/download/v6.1.0/schemaspy-6.1.0.jar
           wget -O postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.2.24.jar
 
+      #　https://github.com/schemaspy/schemaspy/issues/597:
       - name: Run SchemaSpy
         run: |
           mkdir output
-          java -jar schemaspy.jar -t pgsql11 -dp postgresql.jar -host localhost -port 5432 -db ${{ env.POSTGRES_DB }} -s public -u ${{ env.POSTGRES_USER }} -p ${{ env.POSTGRES_PASSWORD }} -o output -norows -hq
-     
-
+          java -jar schemaspy.jar -t pgsql11 -dp postgresql.jar -host localhost -port 5432 -db ${{ env.POSTGRES_DB }} -s public -u ${{ env.POSTGRES_USER }} -p ${{ env.POSTGRES_PASSWORD }} -o output -norows -hq -vizjs
 
       - name: Upload ER Diagram as Artifact
         uses: actions/upload-artifact@v2
