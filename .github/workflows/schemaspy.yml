@@ -38,8 +38,7 @@ jobs:
 
       - name: Run Migrations
         run: |
-          lein run -m clojure-with-schema-spy.core/dev
-          lein run -m clojure-with-schema-spy.core/reset
+          echo "(dev) (reset)" | lein repl
           
 
       - name: Download SchemaSpy
