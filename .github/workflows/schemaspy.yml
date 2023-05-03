@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  POSTGRES_USER: api
+  POSTGRES_PASSWORD: password
+  POSTGRES_DB: api
+
 jobs:
   schemaspy:
     runs-on: ubuntu-latest
@@ -14,9 +19,9 @@ jobs:
       postgres:
         image: postgres:15-alpine
         env:
-          POSTGRES_USER: api
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: api
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
         ports:
           - 5432:5432
 
